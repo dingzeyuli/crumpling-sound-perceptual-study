@@ -3,6 +3,9 @@ var fade_ms = 200;
 
 var cur_question_id = -1;
 
+var timer_click = -200;
+
+
 function begin_questionnaire()
 {
   $("#header").hide();
@@ -26,6 +29,8 @@ function begin_survey()
   $("#demographic_container").hide();
   $("#begin_survey").hide();
   $("#next").show();
+
+  timer_click = new Date();
   next_question();
 }
 
@@ -41,6 +46,11 @@ function next_question()
     alert("Please answer the question.");
     return;
   }
+
+  var diff=new Date() - timer_click;
+  timer_click = new Date();
+  $("#timing"+(cur_question_id)).val(String(diff));
+
   $("#question"+cur_question_id).hide();
   cur_question_id++;
   $("#question"+cur_question_id).fadeIn(fade_ms);
@@ -55,6 +65,9 @@ function next_question()
 function finish()
 {
   $("#question"+cur_question_id).hide();
+  var diff=new Date() - timer_click;
+  timer_click = new Date();
+  $("#timing"+cur_question_id).val(String(diff));
   cur_question_id++;
   // submit the survey
   document.survey.submit();
@@ -184,7 +197,8 @@ function shuffle(array) {
 
 // A countdown timer in jQuery:
 // http://stackoverflow.com/questions/3089475/how-can-i-create-a-5-second-countdown-timer-with-jquery-that-ends-with-a-login-p
-var kStudySeconds = 10;
+var kStudySeconds = 1;
+//TODO
 function update_primer_button( seconds )
 {
   if( seconds == kStudySeconds )

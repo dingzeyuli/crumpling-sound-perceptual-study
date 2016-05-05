@@ -3,7 +3,7 @@
   <head>
     <link rel=stylesheet href="reset.css" type="text/css" media=screen>
     <link rel=stylesheet href="article.css" type="text/css" media=screen>
-    <title>Ink and Ray - Perceptual Study</title>
+    <title>SOUND SOUND - Perceptual Study</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
     </script>
     <script src="survey.js"> </script>
@@ -12,26 +12,27 @@
     <div id=container>
       <div id=article>
         <div id=header>
-          <h1>Evaluate 3D renderings of drawings</h1>
+          <h1>Evaluate Recognition of Crumpling Sounds</h1>
           <hr>
         </div>
         <?php
 // Declare experiment type. We had two different experiments. This also
 // determines the directory for outputting data: ./data/4AFC/ or ./data/2AFC/
-$experiment = "4AFC";
 $experiment = "2AFC";
+$experiment = "4AFC";
+$experiment = "MANYCHOICE"
 if(isset($_GET["experiment"]))
 {
   $experiment = $_GET["experiment"];
 }
 // FORCE RANDOM
-if(rand(0,1))
-{
-  $experiment="4AFC";
-}else
-{
-  $experiment="2AFC";
-}
+//if(rand(0,1))
+//{
+//  $experiment="4AFC";
+//}else
+//{
+//  $experiment="2AFC";
+//}
         ?>
 
 
@@ -61,12 +62,12 @@ if(rand(0,1))
         <!--<div style="display:none;" id=question_container>-->
 
         <!--
+        -->
         <h3>Requirements checklist</h3>
         <ul>
           <li>This study will take an estimated <strong>15 minutes</strong>. It should be accomplished in one sitting: all data will be submited only upon completion.</li>
           <li>Please do not refresh the page or use the forward/back buttons before finishing the study.</li>
         </ul>
-        -->
 
         <form action="./submit.php" method=POST name=survey>
           <input type=hidden name=experiment value=<?php print $experiment;?>>
@@ -106,7 +107,7 @@ for($value = 18; $value <= 100; $value++){
 
 
         <?php
-$drawings = array("lion","rings","snake");
+$drawings = array("lion");//,"rings","snake");
 $num_lightings = $lightings.length;
 
 $methods = array("real","ink","lumo","inf");
@@ -121,7 +122,7 @@ switch($experiment)
   case "4AFC":
     $n_choose_k = array(array(0,1,2,3));
     $lightings = array("s","d");
-    $views = array("1","2");
+    $views = array("1");//,"2");
     $num_repititions = 2;
     break;
   case "2AFC":
@@ -179,6 +180,7 @@ foreach($combos as $ques_i=>$combo)
               src=./study_images/".$drawing.$view."_drawing.jpg alt=''>
             <br>
             <div class=candidates_container>
+            <input type=hidden name=timing$ques_i id=timing$ques_i value=".Mickey.">
             <input type=hidden name=alternatives$ques_i value=".join('-',$methods).">
 ";
   foreach($methods as $meth_i=>$method)
@@ -210,7 +212,7 @@ print
         <!-- <p class=light>The same question may appear multiple times; please try to answer consistently</p> -->
 
         <div id=submit_container>
-          <button id=begin onclick="begin_questionnaire();" disabled>Begin</button>
+          <button id=begin onclick="begin_questionnaire(); disabled">Begin</button>
           <button style="display:none;" id=begin_survey onclick="begin_survey();">Next</button>
           <button style="display:none;" id=next onclick="next_question();">Next</button>
           <button style="display:none;" id=finish onclick="finish();">Finish!</button>
