@@ -2,9 +2,14 @@
 var fade_ms = 200;
 
 var cur_question_id = -1;
+var next_question_id = -1;
+var first_batch = 0;
 
 var timer_click = -200;
 
+//window.onbeforeunload = function() {
+//    return "Data will be lost if you leave the page, are you sure?";
+//};
 
 function begin_questionnaire()
 {
@@ -46,6 +51,13 @@ function next_question()
     alert("Please answer the question.");
     return;
   }
+
+
+  next_question_id = cur_question_id + 1;
+  if (cur_question_id >=0 && cur_question_id != 60 && cur_question_id <= 120)
+    $("#audio"+cur_question_id)[0].pause();
+  if (next_question_id>= 0 && next_question_id != 60 && next_question_id <= 120)
+    $("#audio"+ next_question_id)[0].play();
 
   var diff=new Date() - timer_click;
   timer_click = new Date();
@@ -203,15 +215,15 @@ function update_primer_button( seconds )
 {
   if( seconds == kStudySeconds )
   {
-    $('#begin').html( 'Begin (study for ' + seconds + ' seconds)' );
+    $('#begin').html( 'Begin (study in ' + seconds + ' seconds)' );
   }
   else if( seconds > 1 )
   {
-    $('#begin').html( 'Begin (study for ' + seconds + ' more seconds)' );
+    $('#begin').html( 'Begin (study in ' + seconds + ' seconds)' );
   }
   else if( seconds == 1 )
   {
-    $('#begin').html( 'Begin (study for 1 more second)' );
+    $('#begin').html( 'Begin (study in 1 second)' );
   }
   else
   {

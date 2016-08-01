@@ -5,8 +5,7 @@ function Zip($source, $destination)
     if (!extension_loaded('zip') || !file_exists($source)) {
         return false;
     }
-
-    $zip = new ZipArchive();
+    :
     if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
         return false;
     }

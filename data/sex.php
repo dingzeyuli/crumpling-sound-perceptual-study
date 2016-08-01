@@ -8,7 +8,6 @@
   <body>
     <div id=container>
       <div id=article>
-        <h1>Results overview</h1>
         <?php
 $experiments = array("4AFC","2AFC");
 $experiments = "MANYCHOICE";
@@ -17,146 +16,46 @@ $experiments = "MANYCHOICE";
 $it = glob('MANYCHOICE/*.txt');
 
 //ARRAY
-// 0: alum
+/// 0: alum
 // 1: candy
 // 2: bag
 // 3: bottle
 // 4: soda
 
-print "0: alum foil; 1: candy; 2: bag; 3: bottle; 4: soda<br><br>";
-
-$r = array();
-$f = array();
-$s = array();
-for ($i=0; $i<5; ++$i)
-for ($j=0; $j<5; ++$j)
-{
-  $r[$i][$j] = 0;
-  $f[$i][$j] = 0;
-  $s[$i][$j] = 0;
-}
-
-$likert_r = array();
-$likert_f = array();
-$likert_s = array();
-for ($i=0; $i<5; ++$i)
-{
-  $likert_r[$i] = 0;
-  $likert_f[$i] = 0;
-  $likert_s[$i] = 0;
-}
+//print "0: alum foil; 1: candy; 2: bag; 3: bottle; 4: soda<br><br>";
 
 $num_files = 0.0;
+$num_males = 0.0;
+$num_females = 0.0;
+$ages = 0.0;
 foreach ($it as $filename) {
   //print $filename;
   $num_files ++;
   $file = $filename;
   $current = file_get_contents($file);
   $json_a = json_decode($current);
-  //$pairs = explode(":", file_get_contents($file));
   
   $total_index = $json_a->{"instructions"};
-  //print $total_index."<br>";
   $data = "";
-  for ($x = 0; $x < 60; $x++) {
-    //print $x.": ".$json_a->{"question$x"}."<br>";
-    $data = $json_a->{"question$x"};
-    $i=0;
-    $j=0;
-    if (strpos($data, 'alum') !== FALSE){ $i = 0;}
-    else if (strpos($data, 'candy') !== FALSE){ $i = 1;}
-    else if (strpos($data, 'icbag') !== FALSE){ $i = 2;}
-    else if (strpos($data, 'icbot') !== FALSE){ $i = 3;}
-    else if (strpos($data, 'sodac') !== FALSE){ $i = 4;}
-    
-    if (strpos($data, 'Alum') !== FALSE){ $j = 0;}
-    else if (strpos($data, 'Candy') !== FALSE){ $j = 1;}
-    else if (strpos($data, 'ic_Bag') !== FALSE){ $j = 2;}
-    else if (strpos($data, 'ic_Bot') !== FALSE){ $j = 3;}
-    else if (strpos($data, 'Soda') !== FALSE){ $j = 4;}
 
-    if (strpos($data, 'recorded') !== FALSE) { $r[$i][$j] ++;}
-    if (strpos($data, 'full') !== FALSE) { $f[$i][$j] ++;}
-    if (strpos($data, 'simple') !== FALSE) { $s[$i][$j] ++;}
-  }
-
-  for ($x=61; $x<=120; ++$x)
+  $sex = $json_a->{"gender"};
+  if ($sex=="male")
   {
-    $data = $json_a->{"question$x"};
-    $i=0;
-    if (strpos($data, 'alum') !== FALSE){ $i = 0;}
-    else if (strpos($data, 'candy') !== FALSE){ $i = 1;}
-    else if (strpos($data, 'icbag') !== FALSE){ $i = 2;}
-    else if (strpos($data, 'icbot') !== FALSE){ $i = 3;}
-    else if (strpos($data, 'sodac') !== FALSE){ $i = 4;}
-
-    $pieces = explode(".", $data);
-    $rating =  (float) $pieces[2];
-
-    if (strpos($data, 'recorded') !== FALSE) { $likert_r[$i] += $rating;}
-    if (strpos($data, 'full') !== FALSE) { $likert_f[$i] += $rating;}
-    if (strpos($data, 'simple') !== FALSE) { $likert_s[$i] += $rating;}
+    $num_males ++;
   }
+  else
+  {
+    $num_females ++;
+  }
+
+  $age = $json_a->{"age"};
+  $ages += (float) $age;
+  print $age."<br>";
 }
 
-print $num_files." participants submitted.<br><br>";
-
-$num_correct=0;
-for ($i=0; $i<5; ++$i)
-{
-  for ($j=0; $j<5; ++$j)
-  {
-    print $r[$i][$j]."  ";
-  }
-  $num_correct += $r[$i][$i];
-  print "<br>";
-}
-print $num_correct/$num_files/20.0;
-
-  print "<br>";
-  print "<br>";
-
-$num_correct=0;
-for ($i=0; $i<5; ++$i)
-{
-  for ($j=0; $j<5; ++$j)
-  {
-    print $f[$i][$j]."  ";
-  }
-  $num_correct += $f[$i][$i];
-  print "<br>";
-}
-print $num_correct/$num_files/20.0;
-  print "<br>";
-  print "<br>";
-
-
-$num_correct=0;
-for ($i=0; $i<5; ++$i)
-{
-  $num_correct += $s[$i][$i];
-  for ($j=0; $j<5; ++$j)
-  {
-    print $s[$i][$j]."  ";
-  }
-  print "<br>";
-}
-print $num_correct/$num_files/20.0;
-
-print "<br>";
-print "<br>";
-
-print "r: ".array_sum($likert_r)/count($likert_r)/4.0/$num_files." | ";
-for ($i=0; $i<5; ++$i)
-  print $likert_r[$i]/4.0/$num_files."  ";
-print "<br>";
-print "f: ".array_sum($likert_f)/count($likert_f)/4.0/$num_files." | ";
-for ($i=0; $i<5; ++$i)
-  print $likert_f[$i]/4.0/$num_files."  ";
-print "<br>";
-print "s: ".array_sum($likert_s)/count($likert_s)/4.0/$num_files." | ";
-for ($i=0; $i<5; ++$i)
-  print $likert_s[$i]/4.0/$num_files."  ";
+print $num_males."<br>";
+print $num_females."<br>";
+print $ages/$num_files."<br>";
 
 /*
 foreach($experiments as $experiment)

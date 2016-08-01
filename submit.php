@@ -3,7 +3,7 @@
   <head>
     <link rel=stylesheet href="reset.css" type="text/css" media=screen>
     <link rel=stylesheet href="article.css" type="text/css" media=screen>
-    <title>Ink and Ray - User Study</title>
+    <title>Sound User Study</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
     </script>
     <script src="survey.js"> </script>

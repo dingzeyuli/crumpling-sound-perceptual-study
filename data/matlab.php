@@ -8,7 +8,6 @@
   <body>
     <div id=container>
       <div id=article>
-        <h1>Results overview</h1>
         <?php
 $experiments = array("4AFC","2AFC");
 $experiments = "MANYCHOICE";
@@ -17,28 +16,26 @@ $experiments = "MANYCHOICE";
 $it = glob('MANYCHOICE/*.txt');
 
 //ARRAY
-// 0: alum
+/// 0: alum
 // 1: candy
 // 2: bag
 // 3: bottle
 // 4: soda
 
-print "0: alum foil; 1: candy; 2: bag; 3: bottle; 4: soda<br><br>";
+//print "0: alum foil; 1: candy; 2: bag; 3: bottle; 4: soda<br><br>";
 
 $r = array();
 $f = array();
 $s = array();
-for ($i=0; $i<5; ++$i)
-for ($j=0; $j<5; ++$j)
-{
-  $r[$i][$j] = 0;
-  $f[$i][$j] = 0;
-  $s[$i][$j] = 0;
-}
-
 $likert_r = array();
 $likert_f = array();
 $likert_s = array();
+$t_r = array();
+$t_f = array();
+$t_s = array();
+
+
+
 for ($i=0; $i<5; ++$i)
 {
   $likert_r[$i] = 0;
@@ -48,6 +45,20 @@ for ($i=0; $i<5; ++$i)
 
 $num_files = 0.0;
 foreach ($it as $filename) {
+  for ($i=0; $i<5; ++$i)
+  for ($j=0; $j<5; ++$j)
+  {
+    $r[$i][$j] = 0;
+    $f[$i][$j] = 0;
+    $s[$i][$j] = 0;
+    $t_r[$i] = 0;
+    $t_f[$i] = 0;
+    $t_s[$i] = 0;
+    $likert_r[$i] = 0;
+    $likert_f[$i] = 0;
+    $likert_s[$i] = 0;
+  }
+
   //print $filename;
   $num_files ++;
   $file = $filename;
@@ -61,6 +72,8 @@ foreach ($it as $filename) {
   for ($x = 0; $x < 60; $x++) {
     //print $x.": ".$json_a->{"question$x"}."<br>";
     $data = $json_a->{"question$x"};
+    $data_t = $json_a->{"timing$x"};
+    
     $i=0;
     $j=0;
     if (strpos($data, 'alum') !== FALSE){ $i = 0;}
@@ -75,9 +88,10 @@ foreach ($it as $filename) {
     else if (strpos($data, 'ic_Bot') !== FALSE){ $j = 3;}
     else if (strpos($data, 'Soda') !== FALSE){ $j = 4;}
 
-    if (strpos($data, 'recorded') !== FALSE) { $r[$i][$j] ++;}
-    if (strpos($data, 'full') !== FALSE) { $f[$i][$j] ++;}
-    if (strpos($data, 'simple') !== FALSE) { $s[$i][$j] ++;}
+    if (strpos($data, 'recorded') !== FALSE) { $r[$i][$j] ++; $t_r[$i] += (float)($data_t); }
+    if (strpos($data, 'full') !== FALSE) { $f[$i][$j] ++;     $t_f[$i] += (float)($data_t); }
+    if (strpos($data, 'simple') !== FALSE) { $s[$i][$j] ++;   $t_s[$i] += (float)($data_t); }
+    
   }
 
   for ($x=61; $x<=120; ++$x)
@@ -97,9 +111,46 @@ foreach ($it as $filename) {
     if (strpos($data, 'full') !== FALSE) { $likert_f[$i] += $rating;}
     if (strpos($data, 'simple') !== FALSE) { $likert_s[$i] += $rating;}
   }
+  
+  $num_correct_r = 0;
+  $num_correct_f = 0;
+  $num_correct_s = 0;
+  for ($i=0; $i<5; ++$i)
+  {
+    $num_correct_r += $r[$i][$i];
+    $num_correct_f += $f[$i][$i];
+    $num_correct_s += $s[$i][$i];
+  }
+  print "r($num_files)=".$num_correct_r.";<br>";
+  print "f($num_files)=".$num_correct_f.";<br>";
+  print "s($num_files)=".$num_correct_s.";<br>";
+  print "t_r($num_files)=".array_sum($t_r).";<br>";
+  print "t_f($num_files)=".array_sum($t_f).";<br>";
+  print "t_s($num_files)=".array_sum($t_s).";<br>";
+  print "l_r($num_files)=".array_sum($likert_r).";<br>";
+  print "l_f($num_files)=".array_sum($likert_f).";<br>";
+  print "l_s($num_files)=".array_sum($likert_s).";<br>";
 }
 
-print $num_files." participants submitted.<br><br>";
+//print $num_files." participants submitted.<br><br>";
+if (0)
+{
+
+for ($i=0; $i<5; ++$i)
+{
+  print $t_r[$i]." ";
+}
+print "<br>";
+for ($i=0; $i<5; ++$i)
+{
+  print $t_f[$i]." ";
+}
+print "<br>";
+for ($i=0; $i<5; ++$i)
+{
+  print $t_s[$i]." ";
+}
+print "<br>";
 
 $num_correct=0;
 for ($i=0; $i<5; ++$i)
@@ -157,6 +208,7 @@ print "<br>";
 print "s: ".array_sum($likert_s)/count($likert_s)/4.0/$num_files." | ";
 for ($i=0; $i<5; ++$i)
   print $likert_s[$i]/4.0/$num_files."  ";
+}
 
 /*
 foreach($experiments as $experiment)

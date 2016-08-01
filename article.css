@@ -28,7 +28,7 @@ div#article
   padding-top: 0px;
   padding-bottom: 10px;
   /* size of article */
-  max-width: 800px;
+  max-width: 1100px;
   text-align: left;
 }
 
@@ -75,6 +75,11 @@ a.submit
   font-size: 200%;
   text-decoration: none;
   color: #333;
+}
+
+ol
+{
+  padding-left: 20px;
 }
 
 ul
@@ -185,6 +190,12 @@ div.question
   text-align: center;
 }
 
+
+td
+{
+  width:70px;
+}
+
 div.figure
 {
   border: 1px solid #888;
@@ -197,7 +208,7 @@ div.figure
 
 img.candidate
 {
-  height: 250px;
+  height: 150px;
   border: 4px solid #111;
 }
 
