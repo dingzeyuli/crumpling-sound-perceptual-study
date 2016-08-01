@@ -1,6 +1,12 @@
-# Web-based perceptual study codebase
+# Web-based sound perceptual study codebase
 
 ![example screenshot](screenshot.jpg)
+
+This codebase is forked from [Alec Jacobson's github codebase](https://github.com/alecjacobson/perceptual-study). I made a few changes so that it better supports the audio file play and stop features. We use this perceptual study in our SIGGRAPH Asia paper [Crumpling Sound Synthesis](http://www.cs.columbia.edu/cg/crumpling/) [Cirio et al. 2016].
+
+The followings are from the orignal descriptions.
+
+--
 
 This is nothing more than the .php/.javascript/.css/.html files we used to
 create the two-/four-alternative forced choice perceptual study for our
