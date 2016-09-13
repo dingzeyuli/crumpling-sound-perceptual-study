@@ -6,3 +6,4 @@ chmod 755 sounds
 chmod 755 sound_images/
 chmod 644 sounds/*
 chmod 644 sound_images/*
+chmod 777 data/MANYCHOICE
