@@ -2,9 +2,12 @@
 
 ![example screenshot](screenshot.jpg)
 
-This codebase is forked from [Alec Jacobson's github codebase](https://github.com/alecjacobson/perceptual-study). I made a few changes so that it better supports the audio file play and stop features. We use this perceptual study in our SIGGRAPH Asia paper [Crumpling Sound Synthesis](http://www.cs.columbia.edu/cg/crumpling/) [Cirio et al. 2016].
+This perceptual study is used in our SIGGRAPH Asia paper [Crumpling Sound Synthesis](http://www.cs.columbia.edu/cg/crumpling/) [Cirio et al. 2016]. The codebase is forked from [Alec Jacobson's github codebase](https://github.com/alecjacobson/perceptual-study). We made a few changes so that it better supports the audio file play and stop features. 
 
-The followings are from the orignal descriptions.
+For live demo, try [this](http://www.cs.columbia.edu/cg/crumpling/perceptual-study/).
+The whole study is long and takes upto 30 minutes.
+
+The followings are from the orignal description.
 
 --
 
