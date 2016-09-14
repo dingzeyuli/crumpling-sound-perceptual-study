@@ -26,10 +26,11 @@ file_put_contents("./data/".$_POST["experiment"]."/".$_POST["unique_id"].".txt",
         you could use:
         </p>
         <textarea readonly=true cols=80 rows=6>
-My friends are conducting a user study to evaluate their research on sound simulation. Please take 15 minutes to complete their survey:
+We are conducting a user study to evaluate their research on sound simulation. Please take 15 minutes to complete their survey:
 
-http://www.cs.columbia.edu/~dli/db/perceptual-study/
+http://www.cs.columbia.edu/cg/crumpling/perceptual-study/
 </textarea>
+    <br><script type="text/javascript" src="../copyright.js"></script>
       </div>
     </div>
   </body>

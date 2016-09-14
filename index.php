@@ -405,6 +405,7 @@ print
           <button style="display:none;" id=begin_survey onclick="begin_survey();">Next</button>
           <button style="display:none;" id=next onclick="next_question();">Next</button>
           <button style="display:none;" id=finish onclick="finish();">Finish!</button>
+    <script type="text/javascript" src="../copyright.js"></script>
         </div>
 
       </div>
