@@ -1,13 +1,13 @@
-# Web-based sound perceptual study codebase
+# Web-based Sound Perceptual Study
 
 ![example screenshot](screenshot.jpg)
 
 This perceptual study is used in our SIGGRAPH Asia paper [Crumpling Sound Synthesis](http://www.cs.columbia.edu/cg/crumpling/) [Cirio et al. 2016]. The codebase is forked from [Alec Jacobson's github codebase](https://github.com/alecjacobson/perceptual-study). We made a few changes so that it better supports the audio file play and stop features. 
 
-For live demo, try [this](http://www.cs.columbia.edu/cg/crumpling/perceptual-study/).
-The whole study is long and takes upto 30 minutes.
+For a live demo, try [this](http://www.cs.columbia.edu/cg/crumpling/perceptual-study/).
+To complete the whole study, one might take upto 30 minutes.
 
-The followings are from the orignal description.
+The following is from the orignal description.
 
 --
 
